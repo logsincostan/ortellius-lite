@@ -1,0 +1,32 @@
+stages:
+  - test
+  - build
+
+lint-test-job:
+  stage: test
+  image: harbor.sit.fraunhofer.de/sse-public/python-ci-freethreaded:latest
+
+  tags:
+    # tag required for runner to pick up job
+    - ITT-Service-Runner
+  script:
+    - pip install -r requirements.txt
+    - prek run --all-files
+    - python -Werror -m unittest discover
+
+build:
+  stage: build
+  image: harbor.sit.fraunhofer.de/sse-public/python-ci-freethreaded:latest
+
+
+  tags:
+    # tag required for runner to pick up job
+    - ITT-Service-Runner
+
+  script:
+    - python -m build --wheel
+    - python -m twine upload dist/*
+
+  only:
+    changes:
+      - pyproject.toml

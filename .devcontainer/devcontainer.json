@@ -1,0 +1,21 @@
+{
+  "containerUser": "user",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "GitLab.gitlab-workflow",
+        "charliermarsh.ruff"
+      ]
+    }
+  },
+  "image": "harbor.sit.fraunhofer.de/sse-public/python-devcontainer-freethreaded:latest",
+  "mounts": [
+    "type=tmpfs,destination=/tmp"
+  ],
+  "postCreateCommand": "sudo pip install -r requirements.txt",
+  "runArgs": [
+    "--shm-size=1t"
+  ],
+  "shutdownAction": "none"
+}

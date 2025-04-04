@@ -1,0 +1,47 @@
+{
+  "configurations": [
+    {
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "name": "Python: Debug Tests",
+      "program": "${file}",
+      "purpose": [
+        "debug-test"
+      ],
+      "request": "launch",
+      "type": "debugpy"
+    },
+    {
+      "module": "pytest",
+      "name": "Tests",
+      "request": "launch",
+      "type": "debugpy"
+    },
+    {
+      "args": [
+        "rank_naive",
+        "data/map.tar.gz",
+        "data/nucleo.bin"
+      ],
+      "justMyCode": false,
+      "module": "ortellius",
+      "name": "Ortellius: naive",
+      "request": "launch",
+      "type": "debugpy"
+    },
+    {
+      "args": [
+        "reduce",
+        "data/map.tar.gz",
+        "data/reduced",
+        "2"
+      ],
+      "justMyCode": false,
+      "module": "ortellius",
+      "name": "Ortellius: reduce",
+      "request": "launch",
+      "type": "debugpy"
+    }
+  ],
+  "version": "0.2.0"
+}
