@@ -1,6 +1,7 @@
 stages:
   - test
   - build
+  - publish
 
 lint-test-job:
   stage: test
@@ -30,3 +31,15 @@ build:
   only:
     changes:
       - pyproject.toml
+
+publish:
+  stage: publish
+  image: harbor.sit.fraunhofer.de/sse-public/python-ci-freethreaded:latest
+
+  tags:
+    # tag required for runner to pick up job
+    - ITT-Service-Runner
+
+  script:
+    - git remote add github https://github.com/logsincostan/ortellius-lite.git
+    - git push -u github main
