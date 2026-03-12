@@ -53,4 +53,4 @@ publish:
 
   script:
     - git remote add github git@github.com:logsincostan/ortellius-lite.git
-    - git push -u github HEAD:main
+    - git push -u github HEAD:refs/heads/main
