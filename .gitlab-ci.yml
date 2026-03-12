@@ -41,5 +41,6 @@ publish:
     - ITT-Service-Runner
 
   script:
+    - git checkout origin main
     - git remote add github https://github.com/logsincostan/ortellius-lite.git
     - git push -u github main
