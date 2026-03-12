@@ -40,10 +40,12 @@ publish:
     # tag required for runner to pick up job
     - ITT-Service-Runner
 
-  before-script:
+  before_script:
       - eval $(ssh-agent -s)
       - chmod 400 "$SSH_PRIVATE_KEY"
       - ssh-add "$SSH_PRIVATE_KEY"
+      - mkdir -p ~/.ssh
+      - chmod 700 ~/.ssh
 
   script:
     - git remote add github git@github.com:logsincostan/ortellius-lite.git
