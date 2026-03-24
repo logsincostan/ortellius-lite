@@ -1,5 +1,7 @@
+ghidra-stubs
 mypy
 prek
+pyghidra
 ruff
 serstor
 svdmap
