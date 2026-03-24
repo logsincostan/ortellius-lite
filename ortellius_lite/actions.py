@@ -6,6 +6,7 @@ from sys import stdout
 from typing import TextIO
 
 from . import rank_shadows
+from .access_map import analyze
 
 log = getLogger(__name__)
 
@@ -38,3 +39,11 @@ def rank_shadow_jaccard(
     """Rank all known devices by Shadow Jaccard similarity to the given memory dump."""
     ranking = rank_shadows(device_shadow, firmware_shadow)
     _print_ranking(ranking, stream)
+
+
+def build_access_maps(source: Path, destination: Path) -> None:
+    """Identify xrefs in firmware binaries and write them to destination."""
+    for file, result in analyze(source):
+        (destination / file.with_suffix(".json").name).write_text(
+            result.model_dump_json()
+        )

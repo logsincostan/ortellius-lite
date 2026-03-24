@@ -8,6 +8,7 @@ packages = ["ortellius_lite"]
 [tool.mypy]
 strict = true
 packages = "ortellius_lite"
+mypy_path = "stubs"
 
 [tool.ruff.lint]
 select = ["ALL"]
@@ -15,18 +16,20 @@ ignore = ["D203","D212","COM812","TID252","E501"]
 
 [project]
 name = "ortellius-lite"
-version = "3.1.0"
+version = "3.2.0"
 authors = [
   { name="David Malaschonok", email="david.malaschonok@sit.fraunhofer.de" },
 ]
 description = "A tool for analyzing and comparing SVD files for ARM Cortex-M microcontrollers."
 dependencies = [
+  "pyghidra",
   "serstor",
   "svdmap",
 ]
 
 [project.optional-dependencies]
 dev = [
+  "ghidra-stubs",
   "mypy",
   "prek",
   "ruff",

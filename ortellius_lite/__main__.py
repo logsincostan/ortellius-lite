@@ -5,7 +5,7 @@ import logging
 from collections.abc import Callable, Iterable, Mapping
 from inspect import getdoc, signature
 
-from .actions import rank_shadow_jaccard
+from .actions import build_access_maps, rank_shadow_jaccard
 
 
 def _add_subparsers(
@@ -66,6 +66,7 @@ def _main() -> None:
         parser,
         [
             rank_shadow_jaccard,
+            build_access_maps,
         ],
     )
 

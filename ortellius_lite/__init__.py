@@ -6,7 +6,7 @@ from pathlib import Path
 from serstor import Storage
 from svdmap.model import Shadow
 
-from .imported_models import AnalysisResult
+from .access_map import AnalysisResult
 
 log = getLogger(__name__)
 
