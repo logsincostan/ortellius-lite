@@ -5,10 +5,7 @@ from pathlib import Path
 from sys import stdout
 from typing import TextIO
 
-from serstor import Storage
-from svdmap.model import Shadow
-
-from .imported_models import AnalysisResult
+from . import rank_shadows
 
 log = getLogger(__name__)
 
@@ -39,17 +36,5 @@ def rank_shadow_jaccard(
     device_shadow: Path, firmware_shadow: Path, stream: TextIO = stdout
 ) -> None:
     """Rank all known devices by Shadow Jaccard similarity to the given memory dump."""
-    with Storage(device_shadow) as storage:
-        shadow_base = [storage.get_and_unserialize(name, Shadow) for name in storage]
-    firmware = AnalysisResult.model_validate_json(firmware_shadow.read_text())
-
-    ranks: dict[str, float] = {}
-    for shadow in shadow_base:
-        intersection = len(shadow.read & firmware.read)
-        union = len(shadow.read | firmware.read)
-        similarity = intersection / union if union > 0 else 0.0
-        ranks[shadow.name] = similarity
-
-    log.info("Sorting by similarity...")
-    ranking = sorted(ranks.items(), key=lambda x: x[1], reverse=True)
+    ranking = rank_shadows(device_shadow, firmware_shadow)
     _print_ranking(ranking, stream)
