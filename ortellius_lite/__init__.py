@@ -12,11 +12,16 @@ log = getLogger(__name__)
 
 
 def rank_shadows(
-    device_shadow: Path, firmware_shadow: Path | AnalysisResult
+    device_shadow: Path | list[Shadow], firmware_shadow: Path | AnalysisResult
 ) -> list[tuple[str, float]]:
     """Rank all known devices by Shadow Jaccard similarity to the given memory dump."""
-    with Storage(device_shadow) as storage:
-        shadow_base = [storage.get_and_unserialize(name, Shadow) for name in storage]
+    if isinstance(device_shadow, Path):
+        with Storage(device_shadow) as storage:
+            shadow_base = [
+                storage.get_and_unserialize(name, Shadow) for name in storage
+            ]
+    else:
+        shadow_base = device_shadow
     if isinstance(firmware_shadow, Path):
         firmware = AnalysisResult.model_validate_json(firmware_shadow.read_text())
     else:
