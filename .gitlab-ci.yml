@@ -21,12 +21,35 @@ build:
   stage: build
 
   script:
+    - |
+      set -euo pipefail
+      if python - <<'PY'
+      from pathlib import Path
+      import sys
+      import tomllib
+      import urllib.error
+      import urllib.request
+
+      project = tomllib.loads(Path("pyproject.toml").read_text(encoding="utf-8"))["project"]
+      name = project["name"]
+      version = project["version"]
+      url = f"https://pypi.org/pypi/{name}/{version}/json"
+
+      try:
+          with urllib.request.urlopen(url):
+              print(f"{name} {version} already exists on PyPI. Skipping publish.")
+              sys.exit(0)
+      except urllib.error.HTTPError as err:
+          if err.code == 404:
+              print(f"{name} {version} is not on PyPI yet. Publishing.")
+              sys.exit(1)
+          raise
+      PY
+      then
+        exit 0
+      fi
     - python -m build --wheel
     - python -m twine upload dist/*
-
-  only:
-    changes:
-      - pyproject.toml
 
 publish:
   stage: publish
