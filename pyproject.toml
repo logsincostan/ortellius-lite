@@ -12,7 +12,12 @@ mypy_path = "stubs"
 
 [tool.ruff.lint]
 select = ["ALL"]
-ignore = ["D203","D212","COM812","TID252","E501"]
+ignore = [
+  "D203", # incorrect-blank-line-before-class: class docstring is not preceded by a blank line
+  "D212", # multi-line-summary-first-line: docstring summary is not on the first physical line
+  "COM812", # missing-trailing-comma: absence of trailing commas
+  "TID252", # relative-imports: use of relative imports
+]
 
 [project]
 name = "ortellius-lite"

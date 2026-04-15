@@ -1,4 +1,4 @@
-"""Ortellius is a tool for analyzing and comparing SVD files for ARM Cortex-M microcontrollers."""
+"""Ortellius analyzes and compares SVD files for ARM Cortex-M MCUs."""
 
 from logging import getLogger
 from pathlib import Path
