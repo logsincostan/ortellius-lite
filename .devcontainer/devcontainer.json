@@ -9,7 +9,7 @@
       ]
     }
   },
-  "image": "harbor.sit.fraunhofer.de/sse-public/python-devcontainer-freethreaded:latest",
+  "image": "harbor.sit.fraunhofer.de/sse-public/python-devcontainer:latest",
   "mounts": [
     "type=tmpfs,destination=/tmp"
   ],
