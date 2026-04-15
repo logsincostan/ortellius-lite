@@ -3,13 +3,15 @@ stages:
   - build
   - publish
 
-lint-test-job:
-  stage: test
-  image: harbor.sit.fraunhofer.de/sse-public/python-ci-freethreaded:latest
-
+default:
+  image: harbor.sit.fraunhofer.de/sse-public/python-ci:latest
   tags:
     # tag required for runner to pick up job
     - ITT-Service-Runner
+
+lint-test-job:
+  stage: test
+
   script:
     - pip install -r requirements.txt
     - prek run --all-files
@@ -17,12 +19,6 @@ lint-test-job:
 
 build:
   stage: build
-  image: harbor.sit.fraunhofer.de/sse-public/python-ci-freethreaded:latest
-
-
-  tags:
-    # tag required for runner to pick up job
-    - ITT-Service-Runner
 
   script:
     - python -m build --wheel
@@ -34,11 +30,6 @@ build:
 
 publish:
   stage: publish
-  image: harbor.sit.fraunhofer.de/sse-public/python-ci-freethreaded:latest
-
-  tags:
-    # tag required for runner to pick up job
-    - ITT-Service-Runner
 
   before_script:
       - eval $(ssh-agent -s)
